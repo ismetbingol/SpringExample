@@ -1,4 +1,4 @@
-package com.addressbook.demo.pojo;
+package com.addressbook.demo.Entity;
 
 import javax.persistence.*;
 
@@ -10,13 +10,14 @@ public class Communication {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name="person_id")
+    @Column(name = "person_id")
     private int personId;
 
-    @Column(name="communication_Type")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "communication_type")
     private CommunicationType communicationType;
 
-    @Column(name="address_value")
+    @Column(name = "address_value")
     private String value;
 
     public Communication() {

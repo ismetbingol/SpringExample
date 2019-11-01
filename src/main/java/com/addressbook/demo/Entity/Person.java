@@ -1,8 +1,10 @@
-package com.addressbook.demo.pojo;
+package com.addressbook.demo.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Person")
@@ -18,12 +20,14 @@ public class Person {
     @Column(name="birth_date")
     private Date birthDate;
 
-    @OneToMany(mappedBy = "person")
-    private ArrayList<Communication> communicationList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id")
+    private List<Communication> communicationList;
 
     public Person() {
     }
 
+    @NotBlank
     public Person(int id, String fullName, Date birthDate) {
         this.id = id;
         this.fullName = fullName;
@@ -59,7 +63,7 @@ public class Person {
         communicationList.add(communication);
     }
 
-    public ArrayList<Communication> getCommunications() {
+    public List<Communication> getCommunications() {
         return communicationList;
     }
 
