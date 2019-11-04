@@ -44,6 +44,7 @@ public class CommunicationServiceImpl implements CommunicationService {
     public void deletePerson(Integer id) {
         if (communicationRepository.existsById(id)) {
 
+            communicationRepository.deleteById(id);
         }
     }
 

@@ -2,26 +2,31 @@ package com.addressbook.demo.Entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "Person")
-public class Person {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private int id ;
 
     @Column(name="full_name")
     private String fullName;
 
-    @Column(name="birth_date")
+    @Column(name="birth_date",columnDefinition ="DATETIME")
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
+    //@OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name="id")
+    @OneToMany(mappedBy = "person",targetEntity = Communication.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Communication> communicationList;
 
     public Person() {

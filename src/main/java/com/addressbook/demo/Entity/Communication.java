@@ -1,6 +1,7 @@
 package com.addressbook.demo.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Communication")
@@ -8,9 +9,11 @@ public class Communication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private int id;
 
     @Column(name = "person_id")
+    @NotNull
     private int personId;
 
     @Enumerated(EnumType.STRING)
@@ -19,6 +22,10 @@ public class Communication {
 
     @Column(name = "address_value")
     private String value;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name="person_id",referencedColumnName = "id",insertable = false,updatable = false)
+    private Person person;
 
     public Communication() {
     }
