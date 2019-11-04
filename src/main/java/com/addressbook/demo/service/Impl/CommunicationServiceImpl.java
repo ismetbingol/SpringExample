@@ -1,7 +1,7 @@
 package com.addressbook.demo.service.Impl;
 
-import com.addressbook.demo.Entity.Communication;
-import com.addressbook.demo.Entity.Person;
+import com.addressbook.demo.entity.Communication;
+import com.addressbook.demo.entity.Person;
 import com.addressbook.demo.repo.CommunicationRepository;
 import com.addressbook.demo.service.CommunicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,18 @@ public class CommunicationServiceImpl implements CommunicationService {
     }
 
     @Override
-    public void update(int personId, Communication communication) {
+    public void update(Integer person_id, Communication communication) {
 
+        Optional<Person> optionalPerson = communicationRepository.findById(person_id);
+        Person person = optionalPerson.get();
+        List<Communication> communications = person.getCommunications();
+        for (Communication com : communications) {
+            if (com.getId() == communication.getId()) {
+                com.setCommunicationType(communication.getCommunicationType());
+                com.setValue(communication.getValue());
+            }
+        }
+        communicationRepository.save(person);
     }
 
     @Override

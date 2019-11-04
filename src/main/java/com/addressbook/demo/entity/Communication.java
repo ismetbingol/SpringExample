@@ -1,4 +1,4 @@
-package com.addressbook.demo.Entity;
+package com.addressbook.demo.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,7 @@ public class Communication {
     private String value;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name="person_id",referencedColumnName = "id",insertable = false,updatable = false)
+    @JoinColumn(name = "person_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Person person;
 
     public Communication() {
@@ -63,6 +63,17 @@ public class Communication {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return "Communication{" +
+                "id=" + id +
+                ", personId=" + personId +
+                ", communicationType=" + communicationType +
+                ", value='" + value + '\'' +
+                ", person=" + person +
+                '}';
     }
 
     public void setValue(String value) {

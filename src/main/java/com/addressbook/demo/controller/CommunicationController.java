@@ -1,6 +1,7 @@
 package com.addressbook.demo.controller;
 
-import com.addressbook.demo.Entity.Person;
+import com.addressbook.demo.entity.Communication;
+import com.addressbook.demo.entity.Person;
 import com.addressbook.demo.service.CommunicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -33,9 +34,16 @@ public class CommunicationController {
     @DeleteMapping("deletePerson/{id}")
     public ResponseEntity<Void> deletePerson(@PathVariable("id") Integer id) {
 
-            communicationService.deletePerson(id);
+        communicationService.deletePerson(id);
 
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/updatePersonInfo/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") Integer id, @RequestBody Communication communication) {
+        communicationService.update(id, communication);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
 
 }
